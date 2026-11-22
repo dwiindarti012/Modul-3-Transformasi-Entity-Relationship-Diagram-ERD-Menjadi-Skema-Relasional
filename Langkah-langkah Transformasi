@@ -1,0 +1,31 @@
+Tahap 1: Penyediaan ERD Awal
+Menyiapkan ERD Lengkap: Menyediakan diagram Entity-Relationship Diagram (ERD) awal yang sudah dirancang, yang terdiri dari 7 entitas (PROGRAM STUDI, MAHASISWA, DOSEN, MATA_KULIAH, KRS, NILAI, dan KELAS_KULIAH), lengkap dengan seluruh atribut, simbol relasi, dan kardinalitasnya sebelum ditransformasikan menjadi tabel.
+
+Tahap 2: Konversi Entitas menjadi Bentuk Tabel Relasional
+Mengubah setiap entitas dan atributnya dari diagram ERD menjadi bentuk Tabel (Entity Table) yang memiliki kolom penanda kunci (PK / Primary Key):   Tabel PROGRAM STUDI: Memasukkan Kode_prodi sebagai PK, diikuti atribut nama_prodi dan fakultas.   
+Tabel MAHASISWA: Memasukkan NIM sebagai PK, diikuti nama_mhs, jenis_kelamin, alamat, tanggal_lahir, dan tahun_angkatan.   
+Tabel DOSEN: Memasukkan Kode_induk_dosen sebagai PK, diikuti email, nama_dosen, jenis_kelamin, dan no_telepon.   
+Tabel MATA_KULIAH: Memasukkan Kode_mk sebagai PK, diikuti nama_mk dan jumlah_SKS.   
+Tabel KELAS_KULIAH: Memasukkan Kode_kelas sebagai PK, diikuti nama_kelas dan tahun_ajaran.   
+Tabel KRS: Memasukkan atribut semester, tahun_akademik, dan tanggal_pengambilan.   
+Tabel NILAI: Memasukkan atribut nilai_tugas, nilai_uts, nilai_uas, dan nilai_akhir
+
+Tahap 3: Penentuan & Penambahan Foreign Key (FK)
+Berdasarkan aturan kardinalitas One-to-Many (1:N) pada ERD awal, Primary Key dari entitas sisi 1 ditarik menjadi Foreign Key (FK) ke dalam tabel entitas sisi N:   
+Pada Tabel KRS: Menambahkan FK NIM (dari MAHASISWA) dan FK Kode_mk (dari MATA_KULIAH).   
+Pada Tabel NILAI: Menambahkan FK NIM (dari MAHASISWA) dan FK Kode_induk_dosen (dari DOSEN).   
+Pada Tabel DOSEN: Menambahkan FK Kode_prodi (dari PROGRAM STUDI).   
+Pada Tabel MATA_KULIAH: Menambahkan FK Kode_prodi (dari PROGRAM STUDI).   
+Pada Tabel MAHASISWA: Menambahkan FK Kode_prodi (dari PROGRAM STUDI) dan FK Kode_induk_dosen (dari DOSEN).   
+Pada Tabel KELAS_KULIAH: Menambahkan FK Kode_induk_dosen (dari DOSEN) dan FK Kode_mk (dari MATA_KULIAH). 
+
+Tahap 4: Menghubungkan Antar Tabel Menggunakan Notasi Crow's Foot
+Menarik garis relasi baru antar tabel dengan ujung garis tunggal (|) di sisi Primary Key (1) dan ujung bercabang tiga / crow's foot (-<) di sisi Foreign Key (N):   
+Menghubungkan PROGRAM STUDI (1) ke MAHASISWA (N) melalui Kode_prodi.  
+Menghubungkan DOSEN (1) ke MAHASISWA (N) melalui Kode_induk_dosen.   
+Menghubungkan PROGRAM STUDI (1) ke DOSEN (N) melalui Kode_prodi.   
+Menghubungkan MATA_KULIAH (1) ke KELAS_KULIAH (N) melalui Kode_mk.   
+Menghubungkan PROGRAM STUDI (1) ke MATA_KULIAH (N) melalui Kode_prodi.   
+Menghubungkan DOSEN (1) ke KELAS_KULIAH (N) melalui Kode_induk_dosen.   
+Menghubungkan MAHASISWA (1) ke KRS (N) melalui NIM.   Menghubungkan DOSEN (1) ke NILAI (N) melalui Kode_induk_dosen.   
+Menghubungkan MAHASISWA (1) ke NILAI (N) melalui NIM.   Menghubungkan MATA_KULIAH (1) ke KRS (N) melalui Kode_mk.   
